@@ -3,26 +3,31 @@
 # https://gqlgen.com/getting-started/
 
 type Todo {
-  id: ID!
-  text: String!
-  done: Boolean!
-  user: User!
+  id:Int!
+  meeting:Meeting!
 }
 
-type User {
-  id: ID!
-  name: String!
+type Meeting{
+  title: String!
+  description: String!
+  startTime: Int!
+
 }
+
 
 type Query {
-  todos: [Todo!]!
+  getmeeting(id: Int!):Todo
 }
 
 input NewTodo {
-  text: String!
-  userId: String!
+id:Int!
+title: String!
+  description: String!
+  startTime: Int!
+
 }
 
+
 type Mutation {
-  createTodo(input: NewTodo!): Todo!
+  updateMeeting(input: NewTodo): Todo!
 }

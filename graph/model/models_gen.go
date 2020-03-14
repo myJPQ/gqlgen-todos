@@ -2,12 +2,20 @@
 
 package model
 
-type NewTodo struct {
-	Text   string `json:"text"`
-	UserID string `json:"userId"`
+type Meeting struct {
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	StartTime   int    `json:"startTime"`
 }
 
-type User struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
+type NewTodo struct {
+	ID          int    `json:"id"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	StartTime   int    `json:"startTime"`
+}
+
+type Todo struct {
+	ID      int      `json:"id"`
+	Meeting *Meeting `json:"meeting"`
 }

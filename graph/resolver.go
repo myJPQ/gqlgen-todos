@@ -6,5 +6,6 @@ import "github.com/myJPQ/gqlgen-todos/graph/model"
 // It serves as dependency injection for your app, add any dependencies you require here.
 
 type Resolver struct{
-	todos []*model.Todo
+
+	todos map[string]*model.Todo	
 }
