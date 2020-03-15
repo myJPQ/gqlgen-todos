@@ -16,7 +16,7 @@ type Meeting{
 
 
 type Query {
-  getmeeting(id: Int!):Todo
+  getMeeting :[Todo!]!
 }
 
 input NewTodo {
@@ -28,5 +28,7 @@ input NewTodo {
 
 
 type Mutation {
-  updateMeeting(input: NewTodo!): Todo!
+  updateMeeting(input: [NewTodo!]!): [Todo!]! 
+  deleteMeeting(input: [Int!]!): [Todo!]!
 }
+
