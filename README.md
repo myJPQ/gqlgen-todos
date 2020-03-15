@@ -1,7 +1,7 @@
-[playground]:(http://45.77.6.185:8080/)
+##playground:(http://45.77.6.185:8080/)
 
 
-//Create and UpdateMeeting
+Create and UpdateMeeting
 
 ``` 
 mutation updateMeeting {
@@ -16,7 +16,7 @@ mutation updateMeeting {
 }
 ```
 
-//query Meeting
+query Meeting
 
 ``` 
 query  getMeeting {  
@@ -32,7 +32,7 @@ query  getMeeting {
 ``` 
 
 
-//delete Meeting
+delete Meeting
 
 ``` 
 mutation deleteMeeting {
