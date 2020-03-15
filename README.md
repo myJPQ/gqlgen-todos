@@ -2,6 +2,7 @@ playground:http://45.77.6.185:8080/
 
 
 //Create and UpdateMeeting
+
 mutation updateMeeting {
   updateMeeting(input:[{id: 2, title:"1",description: "23" ,startTime: 1},{id: 3, title:"1",description: "23" ,startTime: 1}]) {
     id
@@ -14,9 +15,8 @@ mutation updateMeeting {
 }
 
 //query Meeting
-query  getMeeting {
-  
-    
+
+query  getMeeting {  
    getMeeting{
     id
     meeting{
@@ -25,15 +25,12 @@ query  getMeeting {
       startTime
     }
   }
-    
-
 }
 
 
 //delete Meeting
 mutation deleteMeeting {
   deleteMeeting(input:[3]) {
-    
     id
     meeting{
       title
