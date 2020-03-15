@@ -5,16 +5,21 @@ package graph
 
 import (
 	"context"
+	"sync"
 
 	"github.com/myJPQ/gqlgen-todos/graph/generated"
 	"github.com/myJPQ/gqlgen-todos/graph/model"
 )
 
 func (r *mutationResolver) UpdateMeeting(ctx context.Context, input []*model.NewTodo) ([]*model.Todo, error) {
+
 	if r.todos == nil {
 		r.todos = make(map[int]*model.Todo)
 	}
-
+	if r.lock ==nil{
+		r.lock=new(sync.RWMutex)
+	}
+	r.lock.Lock()
 	response := make([]*model.Todo, len(input))
 	for i := 0; i < len(input); i++ {
 		todo := &model.Todo{
@@ -24,37 +29,53 @@ func (r *mutationResolver) UpdateMeeting(ctx context.Context, input []*model.New
 		r.todos[input[i].ID] = todo
 		response[i] = todo
 	}
+	r.lock.Unlock()
 
 	return response, nil
 }
 
 func (r *mutationResolver) DeleteMeeting(ctx context.Context, input []int) ([]*model.Todo, error) {
-	for i := 0; i < len(input); i++ {
-		if r.todos[input[i]] != nil {
+	if r.lock != nil {
 
-			delete(r.todos, input[i])
 
+		r.lock.Lock()
+		for i := 0; i < len(input); i++ {
+			if r.todos[input[i]] != nil {
+
+				delete(r.todos, input[i])
+
+			}
 		}
+		response := make([]*model.Todo, len(r.todos))
+		i := 0
+		for _, value := range r.todos {
+			response[i] = value
+			i++
+		}
+		r.lock.Unlock()
+		return response, nil
 	}
-	response := make([]*model.Todo, len(r.todos))
-	i := 0
-	for _, value := range r.todos {
-		response[i] = value
-		i++
-	}
+	return  nil,nil
 
-	return response, nil
 }
 
 func (r *queryResolver) GetMeeting(ctx context.Context) ([]*model.Todo, error) {
-	response := make([]*model.Todo, len(r.todos))
-	i := 0
-	for _, value := range r.todos {
-		response[i] = value
-		i++
-	}
 
-	return response, nil
+	if r.lock !=nil {
+		r.lock = new(sync.RWMutex)
+
+		r.lock.RLock()
+		response := make([]*model.Todo, len(r.todos))
+		i := 0
+		for _, value := range r.todos {
+			response[i] = value
+			i++
+		}
+		r.lock.RUnlock()
+		return response, nil
+	}
+    return nil,nil
+
 }
 
 // Mutation returns generated.MutationResolver implementation.
@@ -75,3 +96,4 @@ type queryResolver struct{ *Resolver }
 func (r *queryResolver) Getmeeting(ctx context.Context, id int) (*model.Todo, error) {
 	return r.todos[id], nil
 }
+
