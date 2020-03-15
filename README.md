@@ -15,8 +15,9 @@ mutation updateMeeting {
   }
 }
 ```
-![](https://github.com/myJPQ/gqlgen-todos/raw/master/testimage/create.jpg)
-![](https://github.com/myJPQ/gqlgen-todos/raw/master/testimage/update.jpg)
+![](https://raw.githubusercontent.com/myJPQ/gqlgen-todos/master/testimage/create.jpg)
+
+![](https://raw.githubusercontent.com/myJPQ/gqlgen-todos/master/testimage/update.jpg)
 
 query Meeting
 
@@ -32,7 +33,7 @@ query  getMeeting {
   }
 }
 ``` 
-![](https://github.com/myJPQ/gqlgen-todos/raw/master/testimage/query.jpg)
+![](https://raw.githubusercontent.com/myJPQ/gqlgen-todos/master/testimage/query.jpg)
 
 delete Meeting
 
@@ -48,4 +49,4 @@ mutation deleteMeeting {
 }
 }
 ``` 
-![](https://github.com/myJPQ/gqlgen-todos/raw/master/testimage/delete.jpg)
+![](https://raw.githubusercontent.com/myJPQ/gqlgen-todos/master/testimage/delete.jpg)
