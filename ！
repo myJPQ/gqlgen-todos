@@ -11,10 +11,6 @@ import (
 )
 
 func (r *mutationResolver) UpdateMeeting(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
-	
-	if r.todos ==nil{
-		r.todos=make(map[int]*model.Todo)
-	}	
 	todo := &model.Todo{
 		ID:      input.ID,
 		Meeting: &model.Meeting{Title: input.Title, Description: input.Description, StartTime: input.StartTime},

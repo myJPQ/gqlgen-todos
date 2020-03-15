@@ -20,14 +20,13 @@ type Query {
 }
 
 input NewTodo {
-id:Int!
-title: String!
+  id:Int!
+  title: String!
   description: String!
   startTime: Int!
-
 }
 
 
 type Mutation {
-  updateMeeting(input: NewTodo): Todo!
+  updateMeeting(input: NewTodo!): Todo!
 }

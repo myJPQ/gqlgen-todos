@@ -49,7 +49,7 @@ type ComplexityRoot struct {
 	}
 
 	Mutation struct {
-		UpdateMeeting func(childComplexity int, input *model.NewTodo) int
+		UpdateMeeting func(childComplexity int, input model.NewTodo) int
 	}
 
 	Query struct {
@@ -63,7 +63,7 @@ type ComplexityRoot struct {
 }
 
 type MutationResolver interface {
-	UpdateMeeting(ctx context.Context, input *model.NewTodo) (*model.Todo, error)
+	UpdateMeeting(ctx context.Context, input model.NewTodo) (*model.Todo, error)
 }
 type QueryResolver interface {
 	Getmeeting(ctx context.Context, id int) (*model.Todo, error)
@@ -115,7 +115,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdateMeeting(childComplexity, args["input"].(*model.NewTodo)), true
+		return e.complexity.Mutation.UpdateMeeting(childComplexity, args["input"].(model.NewTodo)), true
 
 	case "Query.getmeeting":
 		if e.complexity.Query.Getmeeting == nil {
@@ -229,16 +229,15 @@ type Query {
 }
 
 input NewTodo {
-id:Int!
-title: String!
+  id:Int!
+  title: String!
   description: String!
   startTime: Int!
-
 }
 
 
 type Mutation {
-  updateMeeting(input: NewTodo): Todo!
+  updateMeeting(input: NewTodo!): Todo!
 }
 `, BuiltIn: false},
 }
@@ -251,9 +250,9 @@ var parsedSchema = gqlparser.MustLoadSchema(sources...)
 func (ec *executionContext) field_Mutation_updateMeeting_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *model.NewTodo
+	var arg0 model.NewTodo
 	if tmp, ok := rawArgs["input"]; ok {
-		arg0, err = ec.unmarshalONewTodo2ᚖgithubᚗcomᚋmyJPQᚋgqlgenᚑtodosᚋgraphᚋmodelᚐNewTodo(ctx, tmp)
+		arg0, err = ec.unmarshalNNewTodo2githubᚗcomᚋmyJPQᚋgqlgenᚑtodosᚋgraphᚋmodelᚐNewTodo(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -452,7 +451,7 @@ func (ec *executionContext) _Mutation_updateMeeting(ctx context.Context, field g
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateMeeting(rctx, args["input"].(*model.NewTodo))
+		return ec.resolvers.Mutation().UpdateMeeting(rctx, args["input"].(model.NewTodo))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -2171,6 +2170,10 @@ func (ec *executionContext) marshalNMeeting2ᚖgithubᚗcomᚋmyJPQᚋgqlgenᚑt
 	return ec._Meeting(ctx, sel, v)
 }
 
+func (ec *executionContext) unmarshalNNewTodo2githubᚗcomᚋmyJPQᚋgqlgenᚑtodosᚋgraphᚋmodelᚐNewTodo(ctx context.Context, v interface{}) (model.NewTodo, error) {
+	return ec.unmarshalInputNewTodo(ctx, v)
+}
+
 func (ec *executionContext) unmarshalNString2string(ctx context.Context, v interface{}) (string, error) {
 	return graphql.UnmarshalString(v)
 }
@@ -2446,18 +2449,6 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 		return graphql.Null
 	}
 	return ec.marshalOBoolean2bool(ctx, sel, *v)
-}
-
-func (ec *executionContext) unmarshalONewTodo2githubᚗcomᚋmyJPQᚋgqlgenᚑtodosᚋgraphᚋmodelᚐNewTodo(ctx context.Context, v interface{}) (model.NewTodo, error) {
-	return ec.unmarshalInputNewTodo(ctx, v)
-}
-
-func (ec *executionContext) unmarshalONewTodo2ᚖgithubᚗcomᚋmyJPQᚋgqlgenᚑtodosᚋgraphᚋmodelᚐNewTodo(ctx context.Context, v interface{}) (*model.NewTodo, error) {
-	if v == nil {
-		return nil, nil
-	}
-	res, err := ec.unmarshalONewTodo2githubᚗcomᚋmyJPQᚋgqlgenᚑtodosᚋgraphᚋmodelᚐNewTodo(ctx, v)
-	return &res, err
 }
 
 func (ec *executionContext) unmarshalOString2string(ctx context.Context, v interface{}) (string, error) {

@@ -7,5 +7,5 @@ import "github.com/myJPQ/gqlgen-todos/graph/model"
 
 type Resolver struct{
 
-	todos map[string]*model.Todo	
+	todos map[int]*model.Todo
 }
